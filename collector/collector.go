@@ -1,7 +1,6 @@
 package collector
 
 import (
-	"fmt"
 	"os"
 	"runtime"
 	"time"
@@ -102,7 +101,6 @@ func (c *Collector) collectStats() Fields {
 	if err == nil {
 		fields.HostName = hostname
 	}
-	fmt.Printf("%v %v\n", err, hostname)
 
 	return fields
 }
