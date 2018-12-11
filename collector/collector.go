@@ -1,6 +1,8 @@
 package collector
 
 import (
+	"fmt"
+	"os"
 	"runtime"
 	"time"
 )
@@ -96,6 +98,11 @@ func (c *Collector) collectStats() Fields {
 	fields.Goos = runtime.GOOS
 	fields.Goarch = runtime.GOARCH
 	fields.Version = runtime.Version()
+	hostname, err := os.Hostname()
+	if err == nil {
+		fields.HostName = hostname
+	}
+	fmt.Printf("%v %v\n", err, hostname)
 
 	return fields
 }
@@ -192,9 +199,10 @@ type Fields struct {
 	NumGC         int64   `json:"mem.gc.count"`
 	GCCPUFraction float64 `json:"mem.gc.cpu_fraction"`
 
-	Goarch  string `json:"-"`
-	Goos    string `json:"-"`
-	Version string `json:"-"`
+	Goarch   string `json:"-"`
+	Goos     string `json:"-"`
+	Version  string `json:"-"`
+	HostName string `json:"-"`
 }
 
 func (f *Fields) Tags() map[string]string {
@@ -202,6 +210,7 @@ func (f *Fields) Tags() map[string]string {
 		"go.os":      f.Goos,
 		"go.arch":    f.Goarch,
 		"go.version": f.Version,
+		"hostname":   f.HostName,
 	}
 }
 
