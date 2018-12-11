@@ -9,7 +9,7 @@ import (
 
 	"github.com/influxdata/influxdb/client/v2"
 	"github.com/pkg/errors"
-	"github.com/tevjef/go-runtime-metrics/collector"
+	"github.com/zhizouxiao/go-runtime-metrics/collector"
 )
 
 const (
